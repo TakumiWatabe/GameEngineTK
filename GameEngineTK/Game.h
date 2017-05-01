@@ -10,8 +10,10 @@
 #include <Effects.h>
 #include <CommonStates.h>
 #include <SimpleMath.h>
+#include <Model.h>
 #include "DebugCamera.h"
 
+#define MAX_BALL 10
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
 class Game
@@ -35,7 +37,8 @@ public:
 
     // Properties
     void GetDefaultSize( int& width, int& height ) const;
-
+	
+	
 private:
 
     void Update(DX::StepTimer const& timer);
@@ -49,6 +52,7 @@ private:
 
     void OnDeviceLost();
 
+	
     // Device resources.
     HWND                                            m_window;
     int                                             m_outputWidth;
@@ -75,6 +79,23 @@ private:
 	DirectX::SimpleMath::Matrix m_world;
 	DirectX::SimpleMath::Matrix m_view;
 	DirectX::SimpleMath::Matrix m_proj;
+
 	//デバッグカメラ
 	std::unique_ptr<DebugCamera> m_debugCamera;
+
+	//エフェクトファクトリー
+	std::unique_ptr<DirectX::EffectFactory> m_factory;
+	//天球モデル
+	std::unique_ptr<DirectX::Model> m_modelSkydorm;
+	//地面モデル
+	std::unique_ptr<DirectX::Model> m_modelGround;
+	//球モデル
+	std::unique_ptr<DirectX::Model> m_modelBall;
+
+	//球ワールド行列
+	DirectX::SimpleMath::Matrix m_worldBall1[MAX_BALL];
+	DirectX::SimpleMath::Matrix m_worldBall2[MAX_BALL];
+	//回転させるための変数
+	float rotateBall1 = 0.0f;
+	float rotateBall2 = 0.0f;
 };

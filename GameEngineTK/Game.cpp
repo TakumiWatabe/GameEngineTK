@@ -120,6 +120,8 @@ void Game::Initialize(HWND window, int width, int height)
 	}
 	//transmat_Tea = Matrix::CreateTranslation(cosf(angle)*range, 0, sinf(angle)*range);
 	tank_angle = 0.0f;
+	//カメラ
+	m_Camera = std::make_unique<FollowCamera>(m_outputWidth, m_outputHeight);
 }
 
 // Executes the basic game loop.
@@ -147,6 +149,14 @@ void Game::Update(DX::StepTimer const& timer)
 	//ビュー行列を取得
 	m_view = m_debugCamera->GetCameraMatrix();
 
+	m_Camera->SetTargetPos(tank_pos);
+	m_Camera->SetTargetAngle(tank_angle);
+
+	//カメラの更新
+	m_Camera->Update();
+	m_view = m_Camera->GetView();
+	m_proj = m_Camera->GetProjection();
+	
 	//＝＝球のワールド行列を計算＝＝//
 
 	//スケーリング

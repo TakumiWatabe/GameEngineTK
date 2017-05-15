@@ -13,6 +13,8 @@
 #include <Model.h>
 #include "DebugCamera.h"
 #include <Keyboard.h>
+#include "Camera.h"
+#include "FollowCamera.h"
 
 #define MAX_BALL 10
 #define MAX_TEAPOD 20
@@ -123,4 +125,6 @@ private:
 	DirectX::SimpleMath::Vector3 tank_pos;
 	float tank_angle;
 
+	//ÉJÉÅÉâ
+	std::unique_ptr<FollowCamera> m_Camera;
 };

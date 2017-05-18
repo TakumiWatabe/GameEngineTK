@@ -122,6 +122,7 @@ void Game::Initialize(HWND window, int width, int height)
 	tank_angle = 0.0f;
 	//ƒJƒƒ‰
 	m_Camera = std::make_unique<FollowCamera>(m_outputWidth, m_outputHeight);
+	m_Camera->SetKeyboard(keyboard.get());
 }
 
 // Executes the basic game loop.
